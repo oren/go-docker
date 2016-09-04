@@ -5,11 +5,9 @@ nginx:
   ports:
    - "80:80"
    - "443:443"
-  restart: always
 
 server:
   build: .
   ports:
     - "3000:3000"
   command: "./go-docker"
-  restart: always
