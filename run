@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# modify default.conf and docker-compose.yml and run the docker containers
+
+# Usage:
+# bin/run
+
+set -e
+set -u
+
+os=$(uname)
+host=$HOST
+
+# nginx
+cd nginx
+cp default.conf.template default.conf
+
+if [ "$os" = "Linux" ]; then
+  replace_host=s/{HOST}/$host/g
+  sed -i "$replace_host" default.conf
+else
+  replace_host=s/{HOST}/$host/g
+  perl -p -i -e "$replace_host" default.conf
+fi
+
+# build
+docker-compose build --no-cache
+
+# run
+docker-compose up
+
