@@ -3,13 +3,7 @@
 # modify default.conf and docker-compose.yml and run the docker containers
 
 # Usage:
-# bin/run
-
-set -e
-set -u
-
-os=$(uname)
-host=$HOST
+# ./run
 
 # nginx
 cd nginx
@@ -23,6 +17,7 @@ else
   perl -p -i -e "$replace_host" default.conf
 fi
 
+cd ..
 # build
 docker-compose build --no-cache
 
